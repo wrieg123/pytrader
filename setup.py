@@ -6,5 +6,5 @@ setup (
     author = 'Will Rieger',
     description= 'Python based futures and securities backtesting engine',
     packages = find_packages(),
-    install_requires = ['numpy', 'pandas', 'matplotlib', 'sqlalchemy', 'mysql-connector', 'numba', 'tqdm', 'mysqlclient'],
+    install_requires = ['numpy', 'pandas', 'matplotlib', 'sqlalchemy', 'numba', 'tqdm','pyyaml'],
 )

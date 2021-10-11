@@ -1,0 +1,11 @@
+indicators:
+    - indicator: MA
+      grouping: Trend
+      universes:
+          - universe: TEST
+            apply_to: assets
+            stream: daily 
+      args:
+          - stream 
+      kwargs:
+          period: 252

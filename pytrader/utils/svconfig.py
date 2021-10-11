@@ -1,5 +1,5 @@
-import mysql.connector as mysql
 import sqlalchemy
+import sqlite3
 import json
 import os
 
@@ -38,7 +38,7 @@ def create_credentials():
 
 
 
-class connector():
+class Connector():
     """
     Serves as point of reference for connection to internal database, currently supports mysql and postgres
     
@@ -50,8 +50,7 @@ class connector():
     """
     def __init__(self, cred_name = None):
         if cred_name is None:
-            with open(os.path.expanduser('~').replace('\\', '/') + '/default.json') as df:
-                cred_name = json.load(df)['default']
+            cred_name = 'default'
         with open(os.path.expanduser('~').replace('\\','/') + '/' + cred_name + '.json', 'r') as f:
             self.credentials = json.load(f)
         self.user = self.credentials['user']
@@ -68,10 +67,12 @@ class connector():
         """
         returns connection relative to type of server type, either a mysql.connector or psycopg2
         """
-        return mysql.connect(**{x:v for x, v in self.credentials.items() if x != 's_type'})
+        if self.s_type == 'sqlite':
+            return sqlite3.connect(self.host)
+        #return mysql.connect(**{x:v for x, v in self.credentials.items() if x != 's_type'})
 
     def engine(self):
         """
         return sqlalchemy engine object using the connection parameters 
         """
-        return sqlalchemy.create_engine(f"{self.s_type}://{self.user}:{self.password}@{self.host}:{self.port}/{self.db}")
+        return sqlalchemy.create_engine(f'sqlite:///{self.host}')
