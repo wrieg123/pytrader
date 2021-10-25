@@ -1,5 +1,9 @@
 import numpy as np
 
+class DeadAsset:
+    def __init__(self, id):
+        self.identifier = id
+
 
 class Signal:
 
@@ -73,7 +77,7 @@ class SignalGroup:
 
         for name in signal_names:
             signal = self.signals[name]
-            assets = ['NA'] if signal.assets is None else signal.assets
+            assets = [DeadAsset('NA')] if signal.assets is None else signal.assets
 
             for asset in assets:
                 if asset.identifier not in tree:
@@ -92,7 +96,7 @@ class SignalGroup:
         tree = {}
         for name in signal_names:
             signal = self.signals[name]
-            assets = ['NA'] if signal.assets is None else signal.assets
+            assets = [DeadAsset('NA')] if signal.assets is None else signal.assets
             
             for asset in assets:
                 if asset not in tree:

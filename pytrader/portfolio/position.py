@@ -18,7 +18,7 @@ class Position:
 
     @property
     def asset_type(self):
-        return self.asset.type
+        return self.asset.asset_type
 
     @property
     def identifier(self):
@@ -30,7 +30,7 @@ class Position:
 
     @property
     def ccy(self):
-        return self.asset.meta['ccy']
+        return self.asset.meta.get('ccy','USD')
 
     @property
     def units(self):

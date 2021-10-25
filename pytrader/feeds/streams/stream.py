@@ -1,19 +1,24 @@
 import numpy as np
 import math
 
+class EmptyArr:
+    def __getitem__(self, x):
+        return None
+    def __len__(self):
+        return 0
 
 class Stream:
 
-    def __init__(self, cache = 25000, NULL_VAL = None):
+    def __init__(self, cache = 25000):
         self._cache = cache
-        self.NULL_VAL = NULL_VAL
+        self.NULL_VAL = EmptyArr()
         self._stream = np.empty([cache])
         self._pointer = 0
     
 
     def __getitem__(self, val):
         if self.pointer == 0:
-            return self.NULL_VAL 
+            return self.NULL_VAL
         return self._stream[:self.pointer][val]
 
     @property
@@ -23,7 +28,7 @@ class Stream:
     @property
     def last(self):
         if self.pointer == 0:
-            return self.NULL_VAL 
+            return self.NULL_VAL[-1]
         return self._stream[:self.pointer][-1]
 
     def _push(self, x):

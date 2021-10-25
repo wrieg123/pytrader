@@ -99,8 +99,12 @@ class Strategy:
                             granularity = granularity
                             )
         else:
+            clean_args = []
+            for arg in args:
+                if arg == 'calendar':
+                    clean_args.append(self.calendar)
             self.add_indicator(
-                    INDICATOR(*args, **kwargs),
+                    INDICATOR(*clean_args, **kwargs),
                     name = name,
                     grouping = grouping,
                     granularity = granularity
